@@ -1,0 +1,84 @@
+# 📱 Let's design our own Smartphone class
+
+class Smartphone:
+    # Constructor: initializes each object with unique values
+    def __init__(self, brand, model, storage):
+        self.brand = brand
+        self.model = model
+        self.storage = storage
+        self.battery = 100  # default battery level at 100%
+
+    # Method: display phone info
+    def phone_info(self):
+        return f"{self.brand} {self.model} with {self.storage}GB storage. Battery: {self.battery}%"
+
+    # Method: simulate using the phone
+    def use_phone(self, hours):
+        self.battery -= hours * 10  # battery drops by 10% per hour
+        if self.battery < 0:
+            self.battery = 0
+        return f"After {hours} hours of use, battery is now {self.battery}%"
+
+    # Method: charge the phone
+    def charge(self):
+        self.battery = 100
+        return f"{self.brand} {self.model} is fully charged 🔋"
+
+# 🎮 Let's make it interactive
+my_phone = Smartphone("Samsung", "Galaxy S23", 256)
+print(my_phone.phone_info())
+
+print(my_phone.use_phone(3))   # Use phone for 3 hours
+print(my_phone.charge())       # Recharge
+print(my_phone.phone_info())
+
+
+
+# 🎮 A GamingPhone is still a Smartphone (Inheritance)
+
+class GamingPhone(Smartphone):
+    def __init__(self, brand, model, storage, cooling_system):
+        # Call the parent constructor (Smartphone)
+        super().__init__(brand, model, storage)
+        self.cooling_system = cooling_system
+
+    # Extra method just for GamingPhone
+    def play_game(self, game):
+        self.battery -= 20
+        if self.battery < 0:
+            self.battery = 0
+        return f"Playing {game} 🎮 on {self.brand} {self.model}. Battery: {self.battery}%"
+
+# 🎮 Testing inheritance
+asus = GamingPhone("Asus", "ROG Phone 6", 512, "Liquid Cooling")
+print(asus.phone_info())
+print(asus.play_game("PUBG"))
+
+
+
+
+
+
+# 🚗✈️🚤 Example of Polymorphism
+
+class Vehicle:
+    def move(self):
+        pass  # placeholder (each child will define its own move)
+
+class Car(Vehicle):
+    def move(self):
+        return "Driving 🚗"
+
+class Plane(Vehicle):
+    def move(self):
+        return "Flying ✈️"
+
+class Boat(Vehicle):
+    def move(self):
+        return "Sailing 🚤"
+
+# 🏁 Test polymorphism
+vehicles = [Car(), Plane(), Boat()]
+
+for v in vehicles:
+    print(v.move())  # Each object calls its own move() method
